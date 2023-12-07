@@ -2,6 +2,10 @@
 
 click go boom
 
+## Demo
+
+![boom](https://github.com/AloyBranCheung/fireworks-click/assets/104483060/12a3f4b2-2b17-411c-8afe-297e3c5b7f4d)
+
 ## To run
 
 `npm i fireworks-click framer-motion`
