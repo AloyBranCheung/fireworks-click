@@ -30,5 +30,14 @@
     "react-dom": "^18.2.0"
   },
   "author": "aloybrancheung",
-  "license": "ISC"
+  "license": "ISC",
+  "keywords": [
+    "react",
+    "fireworks"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AloyBranCheung/fireworks-onclick"
+  },
+  "homepage": "https://github.com/AloyBranCheung/fireworks-onclick"
 }
