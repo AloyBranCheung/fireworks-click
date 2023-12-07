@@ -29,7 +29,7 @@ const Fireworks: React.FunctionComponent = () => {
 
       const color = randomColor();
 
-      setStack((prevStack) => [
+      setStack((prevStack: FireworkConfig[]) => [
         ...prevStack,
         ...new Array(NUM_FIREWORKS).fill(0).map(() => ({
           clientX: clientX - FIREWORK_DIMENSIONS.x / 2 + randomRange(),
@@ -39,7 +39,9 @@ const Fireworks: React.FunctionComponent = () => {
       ]);
 
       setTimeout(() => {
-        setStack((prevStack) => prevStack.slice(NUM_FIREWORKS));
+        setStack((prevStack: FireworkConfig[]) =>
+          prevStack.slice(NUM_FIREWORKS)
+        );
       }, 300);
     };
 
@@ -51,7 +53,7 @@ const Fireworks: React.FunctionComponent = () => {
   }, [FIREWORK_DIMENSIONS.x, FIREWORK_DIMENSIONS.y]);
   return (
     <AnimatePresence>
-      {stack.map((coords) => {
+      {stack.map((coords: FireworkConfig) => {
         const top = coords.clientY - OFFSET / 2 - 50;
         const left = coords.clientX - OFFSET / 2;
         const randomTop = randomRange(601) - 301 + top;
@@ -68,13 +70,20 @@ const Fireworks: React.FunctionComponent = () => {
               height: FIREWORK_DIMENSIONS.y,
               width: FIREWORK_DIMENSIONS.x,
               opacity: 0,
+              zIndex: 999,
             }}
             animate={{
               opacity: [0, 80, 90, 100],
               top: randomTop,
               left: randomLeft,
+              zIndex: 999,
             }}
-            exit={{ opacity: 0, top: randomTop + 100, left: randomLeft + 5 }}
+            exit={{
+              opacity: 0,
+              top: randomTop + 100,
+              left: randomLeft + 5,
+              zIndex: 999,
+            }}
             transition={{ duration: 0.6 }}
           />
         );
