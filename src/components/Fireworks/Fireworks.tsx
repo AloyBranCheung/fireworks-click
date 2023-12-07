@@ -1,0 +1,86 @@
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+export interface FireworkConfig {
+  clientX: number;
+  clientY: number;
+  color: string;
+}
+
+export default function Fireworks() {
+  const [stack, setStack] = useState<FireworkConfig[]>([]);
+
+  const FIREWORK_DIMENSIONS = {
+    x: 6.25,
+    y: 6.25,
+  };
+
+  const NUM_FIREWORKS = 75;
+
+  const OFFSET = 100;
+
+  const randomRange = (range = OFFSET) => Math.random() * range;
+
+  const colors = ["#711DB0", "#C21292", "#EF4040", "#FFA732"];
+
+  const randomColor = () => colors[Math.floor(randomRange(colors.length))];
+
+  useEffect(() => {
+    const handleMouseDown = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+
+      const color = randomColor();
+
+      setStack((prevStack) => [
+        ...prevStack,
+        ...new Array(NUM_FIREWORKS).fill(0).map(() => ({
+          clientX: clientX - FIREWORK_DIMENSIONS.x / 2 + randomRange(),
+          clientY: clientY - FIREWORK_DIMENSIONS.y / 2 + randomRange(),
+          color,
+        })),
+      ]);
+
+      setTimeout(() => {
+        setStack((prevStack) => prevStack.slice(NUM_FIREWORKS));
+      }, 300);
+    };
+
+    window.addEventListener("mousedown", handleMouseDown);
+
+    return () => {
+      window.removeEventListener("mousedown", handleMouseDown);
+    };
+  }, []);
+  return (
+    <AnimatePresence>
+      {stack.map((coords) => {
+        const top = coords.clientY - OFFSET / 2 - 50;
+        const left = coords.clientX - OFFSET / 2;
+        const randomTop = randomRange(601) - 301 + top;
+        const randomLeft = randomRange(601) - 301 + left;
+
+        return (
+          <motion.div
+            key={`${coords.clientY}-${coords.clientX}`}
+            initial={{
+              top,
+              left,
+              position: "absolute",
+              backgroundColor: coords.color,
+              height: FIREWORK_DIMENSIONS.y,
+              width: FIREWORK_DIMENSIONS.x,
+              opacity: 0,
+            }}
+            animate={{
+              opacity: [0, 80, 90, 100],
+              top: randomTop,
+              left: randomLeft,
+            }}
+            exit={{ opacity: 0, top: randomTop + 100, left: randomLeft + 5 }}
+            transition={{ duration: 0.6 }}
+          />
+        );
+      })}
+    </AnimatePresence>
+  );
+}
