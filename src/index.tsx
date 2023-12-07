@@ -7,7 +7,7 @@ export interface FireworkConfig {
   color: string;
 }
 
-export default function Fireworks() {
+const Fireworks: React.FunctionComponent = () => {
   const [stack, setStack] = useState<FireworkConfig[]>([]);
 
   const FIREWORK_DIMENSIONS = {
@@ -21,11 +21,9 @@ export default function Fireworks() {
 
   const randomRange = (range = OFFSET) => Math.random() * range;
 
-  const colors = ["#711DB0", "#C21292", "#EF4040", "#FFA732"];
-
-  const randomColor = () => colors[Math.floor(randomRange(colors.length))];
-
   useEffect(() => {
+    const colors = ["#711DB0", "#C21292", "#EF4040", "#FFA732"];
+    const randomColor = () => colors[Math.floor(randomRange(colors.length))];
     const handleMouseDown = (e: MouseEvent) => {
       const { clientX, clientY } = e;
 
@@ -50,7 +48,7 @@ export default function Fireworks() {
     return () => {
       window.removeEventListener("mousedown", handleMouseDown);
     };
-  }, []);
+  }, [FIREWORK_DIMENSIONS.x, FIREWORK_DIMENSIONS.y]);
   return (
     <AnimatePresence>
       {stack.map((coords) => {
@@ -83,4 +81,6 @@ export default function Fireworks() {
       })}
     </AnimatePresence>
   );
-}
+};
+
+export default Fireworks;
