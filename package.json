@@ -1,10 +1,11 @@
 {
   "name": "fireworks-click",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Mouse click go boom",
   "scripts": {
     "build": "rollup -c",
-    "start": "rollup -c -w"
+    "start": "rollup -c -w",
+    "pub": "npm run build && npm publish"
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
