@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 export interface FireworkConfig {
@@ -51,7 +52,7 @@ const Fireworks: React.FunctionComponent = () => {
       window.removeEventListener("mousedown", handleMouseDown);
     };
   }, [FIREWORK_DIMENSIONS.x, FIREWORK_DIMENSIONS.y]);
-  return (
+  return createPortal(
     <AnimatePresence>
       {stack.map((coords: FireworkConfig) => {
         const top = coords.clientY - OFFSET / 2 - 50;
@@ -88,7 +89,8 @@ const Fireworks: React.FunctionComponent = () => {
           />
         );
       })}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };
 
