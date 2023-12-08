@@ -1,6 +1,6 @@
 {
   "name": "fireworks-click",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Mouse click go boom",
   "scripts": {
     "build": "rollup -c",

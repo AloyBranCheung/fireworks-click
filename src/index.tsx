@@ -66,7 +66,7 @@ const Fireworks: React.FunctionComponent = () => {
             initial={{
               top,
               left,
-              position: "absolute",
+              position: "fixed",
               backgroundColor: coords.color,
               height: FIREWORK_DIMENSIONS.y,
               width: FIREWORK_DIMENSIONS.x,
